@@ -35,7 +35,6 @@ export const RegisterForm: FC = ({}) => {
   function onSubmit(values: z.infer<typeof RegisterSchema>) {
     setError("");
     setSuccess("");
-    form.reset();
 
     startTransition(() => {
       register(values).then((data) => {

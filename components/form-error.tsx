@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 interface Props {
-  message?: string;
+  message?: string | false;
 }
 
 export const FormError: FC<Props> = ({ message }) => {
