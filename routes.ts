@@ -3,7 +3,7 @@
  * These routes are accessible to everyone
  * @type {string[]}
  */
-export const publicRoutes = ["/"];
+export const publicRoutes = ["/", "/auth/new-verification"];
 
 /**
  * Array of auth routes
