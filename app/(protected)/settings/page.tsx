@@ -1,19 +1,16 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { useSession, signOut } from "next-auth/react";
+import { logout } from "@/actions/logout";
+import { LogoutButton } from "@/components/auth/logout-button";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { FC } from "react";
 
 const SettingsPage: FC = ({}) => {
-  const session = useSession();
+  const user = useCurrentUser();
 
   const handleSignOut = () => {
-    signOut();
+    logout();
   };
-  return (
-    <div>
-      {JSON.stringify(session)}
-      <Button onClick={handleSignOut}>Sair</Button>
-    </div>
-  );
+
+  return <></>;
 };
 export default SettingsPage;
