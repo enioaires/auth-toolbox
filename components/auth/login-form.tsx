@@ -12,6 +12,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { Input } from "@/components/ui/input";
 import { CardWrapper } from "./card-wrapper";
 import { LoginSchema } from "@/schemas";
@@ -23,6 +28,7 @@ import Link from "next/link";
 
 export const LoginForm: FC = ({}) => {
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked" &&
     "Email já cadastrado.";
@@ -46,7 +52,7 @@ export const LoginForm: FC = ({}) => {
     setSuccess("");
 
     startTransition(() => {
-      login(values)
+      login(values, callbackUrl)
         .then((res) => {
           if (res?.error) {
             form.reset();
@@ -80,12 +86,18 @@ export const LoginForm: FC = ({}) => {
               control={form.control}
               name="code"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col items-center justify-center">
                   <FormLabel>Código 2FA</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={isPending}
-                      placeholder="123456"
+                    <InputOTP
+                      maxLength={6}
+                      render={({ slots }) => (
+                        <InputOTPGroup>
+                          {slots.map((slot, index) => (
+                            <InputOTPSlot key={index} {...slot} />
+                          ))}
+                        </InputOTPGroup>
+                      )}
                       {...field}
                     />
                   </FormControl>
